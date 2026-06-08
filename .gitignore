@@ -1,0 +1,182 @@
+# Binaries and compiled output
+/bin/
+/dist/
+/*.exe
+/*.exe~
+/*.dll
+/*.so
+/*.dylib
+/*.test
+/*.out
+*.txt
+# Dependency directories
+/vendor/
+/node_modules/
+
+# Go workspace files
+*.mod
+*.sum
+/go.sum
+go.work
+go.work.sum
+
+# Build artifacts
+*.o
+*.a
+*.obj
+*.lib
+*.exe
+*.exe.mdb
+*.ilk
+*.pdb
+*.exp
+*.pdb
+*.manifest
+*.dep
+*.d
+*.deps
+
+# IDE files
+/.vscode/
+/.idea/
+/*.swp
+/*.swo
+*~
+.DS_Store
+/.classpath
+/.project
+/.settings/
+/.factorypath
+
+# Testing and coverage
+*.coverprofile
+*.cov
+*.coverage
+*.out
+*.html
+coverage.txt
+coverage.html
+*.test
+*.bench
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+*.db
+*.dump
+*.tmp
+
+# Environment and configuration
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.crt
+*.cert
+*.p12
+
+# Debugging and profiling
+*.prof
+*.pprof
+*.cpu
+*.mem
+*.block
+*.mutex
+*.trace
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.DS_Store
+._*
+
+# Application specific
+/main
+/main.exe
+/app
+/app.exe
+/server
+/server.exe
+/api
+/api.exe
+*.pid
+*.seed
+
+# Vendor specific
+/.vendor-new/
+/.glide/
+/.godir/
+
+# Module specific
+*.mod
+*.sum
+/go.mod
+/go.sum
+
+# Build tools
+/.gobuild/
+/.go-build/
+/.cache/
+/.tmp/
+/tmp/
+
+# CI/CD
+/.github/
+/.gitlab/
+/.circleci/
+/.travis.yml
+/.drone.yml
+/.woodpecker/
+
+# Kubernetes/Helm
+*.kubeconfig
+*.kubeconfig.*
+/helm/values.local.yaml
+/charts/*/values.local.yaml
+
+# Docker
+*.dockerignore
+Dockerfile.dev
+.docker/
+.dockerignore
+
+# Mock files
+*mock*.go
+*_mock.go
+
+# Generated files
+*_gen.go
+*.pb.go
+*.gw.go
+*_string.go
+*.gen.go
+
+# Local development
+/local/
+/dev/
+/.local/
+/.devcontainer/
+
+# Temp files
+*.temp
+*.tmp
+*.bak
+*.backup
+*.old
+*.orig
+
+# Binary and library files
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+
+# Output files
+/output/
+/build/
+/dist/
+/release/
