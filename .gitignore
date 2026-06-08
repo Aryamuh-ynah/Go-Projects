@@ -12,7 +12,7 @@
 # Dependency directories
 /vendor/
 /node_modules/
-
+.apiConfig
 # Go workspace files
 *.mod
 *.sum
@@ -53,7 +53,7 @@ go.work.sum
 *.cov
 *.coverage
 *.out
-*.html
+
 coverage.txt
 coverage.html
 *.test
