@@ -82,6 +82,20 @@ func CreateShortURL(c echo.Context) error {
 	return c.JSON(http.StatusOK, echo.Map{"short_url": fmt.Sprintf("%s/%s", baseURL, shortCode)})
 
 }
+
+func Redirect(c echo.Context) error {
+	shortCode := c.Param("shortCode")
+	var url models.URL
+	if err := db.Where("short_code = ?", shortCode).First(&url).Error; err != nil {
+		return c.JSON(http.StatusNotFound, echo.Map{"error": "Short URL not found"})
+	}
+
+	url.Clicks++
+	db.Save(&url)
+
+	return c.Redirect(http.StatusMovedPermanently, url.OriginalURL)
+}
+
 func main() {
 	initDB()
 	e:= echo.New()
@@ -89,6 +103,8 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+
+	e.POST("/shorten", CreateShortURL)
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
