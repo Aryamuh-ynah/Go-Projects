@@ -21,6 +21,7 @@ var db *gorm.DB
 var baseURL string
 
 
+// initDB initializes the database connection and migrates the URL model
 func initDB(){
 
 	err := godotenv.Load()
@@ -47,6 +48,8 @@ func initDB(){
 	db = database
 }
 
+// GenarateShortCode generates a random short code of specified length
+
 func GenarateShortCode(n int) string {
 
 	b := make([]byte, n)
@@ -58,6 +61,8 @@ func GenarateShortCode(n int) string {
 	
 	return base64.URLEncoding.EncodeToString(b)[:n]
 }
+
+// CreateShortURL handles the creation of a short URL from the original URL
 
 func CreateShortURL(c echo.Context) error {
 
@@ -82,6 +87,7 @@ func CreateShortURL(c echo.Context) error {
 	return c.JSON(http.StatusOK, echo.Map{"short_url": fmt.Sprintf("%s/%s", baseURL, shortCode)})
 
 }
+// Redirect handles the redirection from short URL to original URL
 
 func Redirect(c echo.Context) error {
 	shortCode := c.Param("shortCode")
@@ -90,11 +96,32 @@ func Redirect(c echo.Context) error {
 		return c.JSON(http.StatusNotFound, echo.Map{"error": "Short URL not found"})
 	}
 
+	db.Model(&url).Update("clicks", url.Clicks+1)
+
+
+
 	url.Clicks++
 	db.Save(&url)
 
 	return c.Redirect(http.StatusMovedPermanently, url.OriginalURL)
 }
+
+// Stats returns the original URL and click count for a given short code
+
+func Stats(c echo.Context) error {
+	shortCode := c.Param("shortCode")
+	var url models.URL
+	if err := db.Where("short_code = ?", shortCode).First(&url).Error; err != nil {
+		return c.JSON(http.StatusNotFound, echo.Map{"error": "Short URL not found"})
+	}
+
+	return c.JSON(http.StatusOK, echo.Map{
+		"original_url": url.OriginalURL,
+		"short_code":   url.ShortCode,
+		"clicks":       url.Clicks,
+	})
+}
+
 
 func main() {
 	initDB()
@@ -105,6 +132,9 @@ func main() {
 
 
 	e.POST("/shorten", CreateShortURL)
+	e.GET("/:shortCode", Redirect)
+	e.GET("stats/:shortCode", Stats)
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
