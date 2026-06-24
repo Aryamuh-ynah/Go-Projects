@@ -14,6 +14,14 @@ type order struct {
 
 }
 
+// methods
+
+func (o order) changeSatus(status string){
+
+	o.status = status
+
+}
+
 
 func main(){
 
@@ -24,6 +32,7 @@ func main(){
 	}
 
 	order1.createdAt = time.Now()
+	order1.changeSatus("Paid")
 
 	fmt.Println(order1.amount)
 	fmt.Println("Order struct ", order1)
