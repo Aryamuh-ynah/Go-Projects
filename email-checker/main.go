@@ -13,7 +13,7 @@ import (
 
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
-	fmt.Printf("Domain, hasMX, hasSPF, sprRecord, hasDMARC, dmarcRecord, hasDKIM, isValid\n")
+	fmt.Printf("Domain, hasMX, hasSPF, sprRecord, hasDMARC, dmarcRecord, isValid\n")
 
 	for scanner.Scan() {
 		checkDomain(scanner.Text())
@@ -29,7 +29,7 @@ func main() {
 
 func checkDomain(domain string) bool {
 
-	var hasMX, hasSPF, hasDMARC, hasDKIM, isValid bool
+	var hasMX, hasSPF, hasDMARC, isValid bool
 
 	var spfRecord, dmarcRecord string
 
@@ -68,7 +68,13 @@ func checkDomain(domain string) bool {
 		}
 	}
 
-	fmt.Printf("%s, %t, %t, %s, %t, %s, %t, %t\n", domain, hasMX, hasSPF, spfRecord, hasDMARC, dmarcRecord, hasDKIM, isValid)
+	if hasMX && hasSPF && hasDMARC {
+		isValid = true
+	}
+
+
+
+	fmt.Printf("%s, %t, %t, %s, %t, %s, %t, %t\n", domain, hasMX, hasSPF, spfRecord, hasDMARC, dmarcRecord, isValid)
 
 	return hasMX && hasSPF && hasDMARC
 
