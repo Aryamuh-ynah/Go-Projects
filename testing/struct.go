@@ -16,10 +16,14 @@ type order struct {
 
 // methods
 
-func (o order) changeSatus(status string){
+func (o *order) changeSatus(status string){
 
 	o.status = status
 
+}
+
+func (o *order) getAmount() float32 {
+	return o.amount
 }
 
 
@@ -39,11 +43,11 @@ func main(){
 
 	order2 := order{
 		id: "2",
-		amount: 122,
+		// amount: 122,
 		status: "Delivered",
 		createdAt: time.Now(),
 
 	}
-
+	fmt.Println(order2.getAmount())
 	fmt.Println("Order 2", order2)
 }
